@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>School Lost & Found System (Offline)</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+
+    <div class="header">
+      <h1>🏫 School Lost & Found</h1>
+      <p>Report, search, and reclaim items easily</p>
+    </div>
+
+    <!-- LOGIN AND REGISTRATION -->
+    <div id="authCard" class="card">
+      <div class="nav-tabs" style="margin-bottom:12px">
+        <button class="nav-tab active" onclick="showAuthTab(event,'login')">Login</button>
+        <button class="nav-tab" onclick="showAuthTab(event,'register')">Register</button>
+      </div> 
+
+      <div id="loginTab">
+        <form id="loginForm">
+          <div class="form-group"><label>Email or ID</label><input id="loginEmail" type="text" required></div>
+          <div class="form-group"><label>Password</label><input id="loginPassword" type="password" required></div>
+          <div class="flex"><button class="btn" type="submit">Login</button></div>
+        </form>
+      </div>
+
+        <!-- Registration form tab -->
+
+      <div id="registerTab" class="hidden">
+        <form id="registerForm">
+          <div class="form-group"><label>Full name</label><input id="regName" type="text" required></div>
+          <div class="form-group"><label>Email</label><input id="regEmail" type="email" required></div>
+          <div class="form-group"><label>Student/Staff ID</label><input id="regId" type="text" required></div>
+          <div class="form-group"><label>Role</label>
+            <select id="regRole" required>
+              <option value="">Select role</option>
+              <option value="student">Student</option>
+              <option value="staff">Staff</option>
+              <option value="admin">Admin</option>
+            </select>
+          </div>
+          <div class="form-group"><label>Password</label><input id="regPassword" type="password" required></div>
+          <div class="flex"><button class="btn" type="submit">Register</button></div>
+        </form>
+      </div>
+    </div>
+
+    <!-- MAIN INTERFACE AFTER LOGIN -->
+    <div id="appCard" class="card hidden">
+      <div style="display:flex;align-items:center">
+        <div>
+          <strong>Welcome, <span id="currentUserName"></span></strong>
+          <div class="small" id="currentUserRole"></div>
+        </div>
+
+        <div style="margin-left:auto" class="flex">
+          <button class="btn-secondary" onclick="logout()">Logout</button>
+        </div> 
+      </div>
+
+      <hr style="margin:12px 0">
+
+      <div class="nav-tabs" style="margin-bottom:12px">
+        <button class="nav-tab active" onclick="showTab(event,'browse')">  Browse</button>
+        <button class="nav-tab" onclick="showTab(event,'reportLost')">Report Lost</button>
+        <button class="nav-tab" onclick="showTab(event,'reportFound')">Report Found</button>
+        <button class="nav-tab" onclick="showTab(event,'myReports')">My Reports</button>
+        <button class="nav-tab" id="notifyTabButton" onclick="showTab(event,'notifications')">Notifications <span id="notifyBadge" class="notify-badge hidden">0</span></button>
+      </div>
+
+      <!-- TAB: BROWSE -->
+      <div id="browseTab" class="tab-content">
+        <div style="display:flex;gap:8px;align-items:center;margin-bottom:10px">
+          <input id="searchInput" type="text" placeholder="Search by name or category..." style="flex:1;padding:8px;border-radius:8px;border:1px solid #dbeafe" oninput="renderBrowse()" />
+          <select id="statusFilter" style="padding:8px;border-radius:8px;border:1px solid #dbeafe" onchange="renderBrowse()">
+            <option value="">All</option><option value="lost">Lost</option><option value="found">Found</option><option value="claimed">Claimed</option>
+          </select>
+          <button class="btn" onclick="renderBrowse()">Refresh</button>
+        </div>
+        <div id="itemsContainer" class="items-grid"></div>
+      </div>
+
+      <!-- TAB: REPORT LOST -->
+      <div id="reportLostTab" class="tab-content hidden">
+        <form id="lostForm">
+          <div class="form-group"><label>Item name</label><input id="lost_name" required></div>
+          <div class="form-group"><label>Category</label><input id="lost_category" required></div>
+          <div class="form-group"><label>Description</label><textarea id="lost_description"></textarea></div>
+          <div class="form-group"><label>Date lost</label><input id="lost_date" type="date" required></div>
+          <div class="flex"><button class="btn" type="submit">Report Lost Item</button></div>
+        </form>
+      </div>
+
+      <!-- TAB: REPORT FOUND -->
+      <div id="reportFoundTab" class="tab-content hidden">
+        <form id="foundForm">
+          <div class="form-group"><label>Item name</label><input id="found_name" required></div>
+          <div class="form-group"><label>Category</label><input id="found_category" required></div>
+          <div class="form-group"><label>Description</label><textarea id="found_description"></textarea></div>
+          <div class="form-group"><label>Date found</label><input id="found_date" type="date" required></div>
+          <div class="flex"><button class="btn" type="submit">Report Found Item</button></div>
+        </form>
+      </div>
+
+      <!-- TAB: MY REPORTS -->
+      <div id="myReportsTab" class="tab-content hidden">
+        <h3 class="small">Your Reports</h3>
+        <div id="myReportsContainer" class="items-grid"></div>
+      </div>
+
+      <!-- TAB: NOTIFICATIONS -->
+      <div id="notificationsTab" class="tab-content hidden">
+        <h3 class="small">Notifications (possible matches)</h3>
+        <div id="notificationsContainer"></div>
+      </div>
+    </div>
+
+  </div>
+
+
+</body>
+<script src="script.js"></script>
+</html>

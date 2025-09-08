@@ -1,4 +1,4 @@
-# 🧭 Lost and Found Management System (Flask)
+# 🧭 Lost and Found Management System :
 
 A full-stack web app to report, search, and manage lost and found items.
 
@@ -12,17 +12,12 @@ A full-stack web app to report, search, and manage lost and found items.
 
 ## 🛠️ Tech Stack
 
-- **Frontend**: HTML, CSS, JavaScript
-- **Backend**: Python Flask
-- **Database**: MySQL 
-- **Auth**: Flask-Login or Flask-Security
+ HTML, css, javascript 
+
 
 ## 📦 Setup Instructions
 
 ```bash
 git clone https://github.com/your-username/lost-and-found-flask-app.git
 cd lost-and-found-flask-app
-python -m venv venv
-source venv/bin/activate  # or venv\Scripts\activate on Windows
-pip install -r requirements.txt
-flask run
+
